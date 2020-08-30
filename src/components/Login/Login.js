@@ -47,6 +47,7 @@ class Login extends Component {
          }else{
            this.setState({icon: 'success', msg: res.data.message})
            localStorage.setItem("Token", res.data.result.token);
+           localStorage.setItem("Id", res.data.result.id);
            this.props.history.push("/home");
          }
          this.alertLogin(this.state.msg, this.state.icon)

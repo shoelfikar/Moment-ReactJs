@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import '../../App.css';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
+import Modal from '../Modal';
 
 
 class Home extends Component {
@@ -76,7 +77,7 @@ class Home extends Component {
                     <a className="nav-link" href="/">Features</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/">Pricing</a>
+                    <Link className="nav-link" to="/home" data-target="#staticBackdrop" data-toggle="modal">Pricing</Link>
                   </li>
                 </ul>
               </div>
@@ -115,6 +116,7 @@ class Home extends Component {
              </div>
           </div>
         </section>
+        <Modal />
         </Fragment>
       )
     }else {

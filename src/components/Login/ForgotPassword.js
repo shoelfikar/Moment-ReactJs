@@ -25,6 +25,7 @@ class ForgotPassword extends Component {
     this.confirmResetPassword = this.confirmResetPassword.bind(this)
     this.alertConfirm = this.alertConfirm.bind(this)
     this.showPassword = this.showPassword.bind(this)
+    this.showConfirmPassword = this.showConfirmPassword.bind(this)
   }
 
   handleChange(e) {
@@ -81,20 +82,23 @@ class ForgotPassword extends Component {
 
   showPassword(value) {
     const password = document.querySelector(`.${value}`)
-    if(this.state.show || this.state.hide){
-      if(value === 'passA'){
+    if(this.state.show){
         this.setState({show: false})
-      }else{
-        this.setState({hide: false})
-      }
-      password.type = 'password'
+        password.type = 'password'
     }else{
-      if(value === 'passA'){
         this.setState({show: true})
-      }else{
+        password.type = 'text'
+    }
+  }
+
+  showConfirmPassword(value) {
+    const password = document.querySelector(`.${value}`)
+    if(this.state.hide){
+        this.setState({hide: false})
+        password.type = 'password'
+    }else{
         this.setState({hide: true})
-      }
-      password.type = 'text'
+        password.type = 'text'
     }
   }
 
@@ -118,10 +122,10 @@ class ForgotPassword extends Component {
                   </div>
                   <div className="wrap-input100 validate-input" data-validate="Password is required">
                   
-                    <input className="input100 passB" type="password" name="confirmPassword"
+                    <input className="input100 passD" type="password" name="confirmPassword"
                     value={this.state.user.confirmPassword}
                     onChange={this.handleChange} />
-                    {this.state.hide === true ? (<img src={showImmage} alt="show-password" className="icon-password" style={{width: '20px'}} onClick={()=>this.showPassword('passB')} /> ): (<img src={hiddenImage} alt="show-password" className="icon-password" style={{width: '20px'}} onClick={()=>this.showPassword('passB')} />)}
+                    {this.state.hide === true ? (<img src={showImmage} alt="show-password" className="icon-password" style={{width: '20px'}} onClick={()=>this.showConfirmPassword('passD')} /> ): (<img src={hiddenImage} alt="show-password" className="icon-password" style={{width: '20px'}} onClick={()=>this.showConfirmPassword('passD')} />)}
                     <span className="focus-input100"></span>
                     <span className="label-input100"> Confirm New Password</span>
                   </div>

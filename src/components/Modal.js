@@ -3,6 +3,7 @@ import defaultProfil from '../assets/image/user.png';
 import axios from 'axios';
 
 
+
 class Modal extends Component {
   constructor(props) {
     super(props);
@@ -17,8 +18,8 @@ class Modal extends Component {
         profil: ''
       }
     }
-    this.getUserLogin = this.getUserLogin.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.getUserLogin = this.getUserLogin.bind(this)
   }
 
   handleChange(e) {
@@ -28,7 +29,6 @@ class Modal extends Component {
       user: newUser
     })
   }
-
   getUserLogin() {
     axios.get(`${process.env.REACT_APP_URL}/user/${this.state.userId}`)
       .then(res => {

@@ -50,6 +50,7 @@ class Register extends Component {
             password: ''
           }
         })
+        this.props.history.push("/login");
       })
       .catch(err => {
         console.log(err)

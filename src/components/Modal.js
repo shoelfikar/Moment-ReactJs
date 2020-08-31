@@ -45,6 +45,7 @@ class Modal extends Component {
       })
   }
 
+
   componentDidMount() {
     this.getUserLogin()
   }

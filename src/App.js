@@ -27,7 +27,6 @@ class App extends Component {
         this.setState({
           bgImage:datas
         })
-        console.log(this.state.bgImage[0])
       })
       .catch(error => {
         console.log(error)

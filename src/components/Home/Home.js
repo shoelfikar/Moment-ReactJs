@@ -5,6 +5,7 @@ import { Redirect, Link } from 'react-router-dom';
 import Modal from '../Modal';
 
 
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -13,11 +14,13 @@ class Home extends Component {
       images: [],
       tags: 'mountain',
       search: '',
-      loading: false
+      loading: false,
+      
     }
     this.getImageFromFlickr = this.getImageFromFlickr.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.searchImageFlickr = this.searchImageFlickr.bind(this)
+    
   }
 
   handleChange(value, e) {
@@ -43,6 +46,10 @@ class Home extends Component {
         console.log(error.response)
       })
   }
+
+  
+
+
   searchImageFlickr(e) {
     e.preventDefault()
     this.getImageFromFlickr(this.state.search)
@@ -55,10 +62,9 @@ class Home extends Component {
     if(!this.state.search){
       this.getImageFromFlickr(this.state.tags)
     }
-
-
-
   }
+
+ 
   render() {
     if(localStorage.getItem('Token')) {
       return(
@@ -70,14 +76,8 @@ class Home extends Component {
               </button>
               <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav ml-auto">
-                  <li className="nav-item active">
-                    <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
-                  </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/">Features</a>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/home" data-target="#staticBackdrop" data-toggle="modal">Pricing</Link>
+                    <Link className="nav-link" to="/home" data-target="#staticBackdrop" data-toggle="modal">Profil</Link>
                   </li>
                 </ul>
               </div>
@@ -116,7 +116,7 @@ class Home extends Component {
              </div>
           </div>
         </section>
-        <Modal />
+        <Modal user={this.state.user}/>
         </Fragment>
       )
     }else {

@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import '../../App.css';
 import axios from 'axios';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Modal from '../Modal';
+import Swal from 'sweetalert2';
 
 
 
@@ -15,12 +16,15 @@ class Home extends Component {
       tags: 'mountain',
       search: '',
       loading: false,
+      name: '',
+      idUser: localStorage.Id
       
     }
     this.getImageFromFlickr = this.getImageFromFlickr.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.searchImageFlickr = this.searchImageFlickr.bind(this)
-    
+    this.getLoginInfo = this.getLoginInfo.bind(this)
+    this.logout = this.logout.bind(this)
   }
 
   handleChange(value, e) {
@@ -58,7 +62,39 @@ class Home extends Component {
     })
   }
 
+
+  getLoginInfo() {
+    axios.get(`${process.env.REACT_APP_URL}/user/${this.state.idUser}`)
+      .then(res => {
+        this.setState({
+          name: res.data.result.full_name
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+
+  logout() {
+    Swal.fire({
+      title: 'Logout from website?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Logout!'
+    }).then((result) => {
+      if (result.value) {
+        delete localStorage.Token
+        delete localStorage.Id
+        this.props.history.push("/");      
+      }
+    })
+  }
+
   componentDidMount() {
+    this.getLoginInfo()
     if(!this.state.search){
       this.getImageFromFlickr(this.state.tags)
     }
@@ -76,8 +112,16 @@ class Home extends Component {
               </button>
               <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav ml-auto">
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/home" data-target="#staticBackdrop" data-toggle="modal">Profil</Link>
+                  <li className="nav-item mr-4 pr-4">
+                    <div className="dropdown">
+                      <button className="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {this.state.name}
+                      </button>
+                      <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <button className="dropdown-item" type="button" data-target="#staticBackdrop" data-toggle="modal">Profil</button>
+                        <button className="dropdown-item" type="button" onClick={this.logout}>Logout</button>
+                      </div>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -116,7 +160,7 @@ class Home extends Component {
              </div>
           </div>
         </section>
-        <Modal user={this.state.user}/>
+        <Modal handleProps={this.handleProps}/>
         </Fragment>
       )
     }else {

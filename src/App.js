@@ -15,7 +15,7 @@ class App extends Component {
   }
 
   getBackground() {
-    axios.get('https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=6f2a0c7e237c57b45ad1a1d5341f7848&tags=beach&format=json&nojsoncallback=1')
+    axios.get('https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=13961738ab40be669def9a4f1be13560&tags=mountain&format=json&nojsoncallback=1')
       .then(res => {
         let datas = []
         this.setState({

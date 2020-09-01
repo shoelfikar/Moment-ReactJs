@@ -6,6 +6,7 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import ResetPassword from './components/Login/ForgotPassword';
 import Home from './components/Home/Home';
+import COnfirmRegister from './components/Register/ConfirmRegister';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
@@ -19,6 +20,7 @@ const Routing = ()=> {
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/resetpassword/:token" component={ResetPassword} />
+      <Route path="/activated/:email/:token" component={COnfirmRegister} />
     </Router>
   )
 }

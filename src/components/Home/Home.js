@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Modal from '../Modal';
 import Swal from 'sweetalert2';
+import Pagination from '../Pagination';
 
 
 
@@ -64,7 +65,7 @@ class Home extends Component {
 
 
   getLoginInfo() {
-    axios.get(`${process.env.REACT_APP_URL}/user/${this.state.idUser}`)
+    axios.get(`${process.env.REACT_APP_URL1}/user/${this.state.idUser}`)
       .then(res => {
         this.setState({
           name: res.data.result.full_name
@@ -159,8 +160,9 @@ class Home extends Component {
             })}      
              </div>
           </div>
+         <Pagination />
         </section>
-        <Modal handleProps={this.handleProps}/>
+        <Modal />
         </Fragment>
       )
     }else {

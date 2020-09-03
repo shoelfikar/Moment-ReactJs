@@ -40,7 +40,7 @@ class Login extends Component {
     e.preventDefault()
     const data = this.state.user;
     axios
-       .post(process.env.REACT_APP_URL1 + `/user/login`, data)
+       .post(process.env.REACT_APP_URL + `/user/login`, data)
        .then(res => {
          if(res.data.status === 'Failed'){
             this.setState({icon: 'error',msg: res.data.message})

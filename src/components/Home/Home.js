@@ -78,7 +78,7 @@ class Home extends Component {
 
 
   getLoginInfo() {
-    axios.get(`${process.env.REACT_APP_URL1}/user/${this.state.idUser}`)
+    axios.get(`${process.env.REACT_APP_URL}/user/${this.state.idUser}`)
       .then(res => {
         this.setState({
           name: res.data.result.full_name

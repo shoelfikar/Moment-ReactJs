@@ -38,11 +38,7 @@ class Modal extends Component {
   }
 
   handleUpload (e) {
-    // let newUser = { ...this.state.user};
     const file = e.target.files[0]
-    // const file2 = e.target.files[0]
-    // newUser.profil = file2
-    // this.setState({user: newUser})
     const nama = document.querySelector('.test1')
     const fr = new FileReader()
     fr.onload = f => {
@@ -50,17 +46,15 @@ class Modal extends Component {
       nama.src = image
     }
     fr.readAsDataURL(file)
-    // console.log(this.state.user)
     const file2 = e.target.files[0]
     let newUser = { ...this.state.user};
     newUser.profil = file2
     this.setState({user: newUser})
-    console.log(newUser.profil)
   }
 
 
   getUserLogin() {
-    axios.get(`${process.env.REACT_APP_URL1}/user/${this.state.userId}`)
+    axios.get(`${process.env.REACT_APP_URL}/user/${this.state.userId}`)
       .then(res => {
         this.setState({user: {
           full_name: res.data.result.full_name,
@@ -84,7 +78,7 @@ class Modal extends Component {
     fd.set('email', data.email)
     fd.set('password', data.password)
     fd.append('profil', data.profil )
-    axios.put(`${process.env.REACT_APP_URL1}/user/update/${this.state.userId}`, fd)
+    axios.put(`${process.env.REACT_APP_URL}/user/update/${this.state.userId}`, fd)
         .then(res => {
           this.alert(res.data.message, 'success')
         })

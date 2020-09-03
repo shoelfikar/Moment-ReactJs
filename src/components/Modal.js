@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import defaultProfil from '../assets/image/user.png';
+import '../components/Login/login.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import showImmage from '../assets/image/eye.png';
+import hiddenImage from '../assets/image/hidden.png';
 
 
 
@@ -20,13 +23,15 @@ class Modal extends Component {
         profil: null
       },
       msg: '',
-      newProfil: null
+      newProfil: null,
+      show:false
     }
     this.handleChange = this.handleChange.bind(this)
     this.getUserLogin = this.getUserLogin.bind(this)
     this.changePassword = this.changePassword.bind(this)
     this.updateProfil = this.updateProfil.bind(this)
     this.handleUpload = this.handleUpload.bind(this)
+    this.changePassword = this.changePassword.bind(this)
   }
 
   handleChange(e) {
@@ -96,6 +101,18 @@ class Modal extends Component {
   }
 
 
+  showPassword(value) {
+    const password = document.querySelector(`.${value}`)
+    if(this.state.show){
+      this.setState({show: false})
+      password.type = 'password'
+    }else{
+      this.setState({show: true})
+      password.type = 'text'
+    }
+  }
+
+
   alert(message, icon) {
     Swal.fire({
       position: 'center',
@@ -153,8 +170,9 @@ class Modal extends Component {
                         onChange={this.handleChange} />
                       </div>
                       <div className="form-group">
-                        {this.state.inputPassword ? (<input type="password" className="form-control" id="password"
+                        {this.state.inputPassword ? (<input type="password" className="form-control passA" id="password"
                         name="password" value={this.state.user.password} onChange={this.handleChange} />) : (<button type="button" className="btn btn-success col-md-12" onClick={()=>this.changePassword('change')}>Change Password</button>)}
+                        {this.state.show === true ? (<img src={showImmage} alt="show-password" className="icon-password-profil" style={{width: '15px'}} onClick={()=>this.showPassword('passA')} /> ): (<img src={hiddenImage} alt="show-password" className="icon-password-profil" style={{width: '15px'}} onClick={()=>this.showPassword('passA')} />)}
                       </div>
                   </form>
                   </div>

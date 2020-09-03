@@ -575,6 +575,14 @@ input.input100 {
   z-index: 99999999;
 }
 
+.icon-password-profil{
+  position: absolute;
+  top: 175px;
+  right: 25px;
+  cursor: pointer;
+  z-index: 99999999;
+}
+
 .alert-validate::before {
   content: attr(data-validate);
   position: absolute;

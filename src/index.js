@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StrictMode} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -15,12 +15,14 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 const Routing = ()=> {
   return(
     <Router>
-      <Route path="/" exact component={App} />
-      <Route path="/home" component={Home} />
-      <Route path="/login" component={Login} />
-      <Route path="/register" component={Register} />
-      <Route path="/resetpassword/:token" component={ResetPassword} />
-      <Route path="/activated/:email/:token" component={COnfirmRegister} />
+      <StrictMode >
+        <Route path="/" exact component={App} />
+        <Route path="/home" component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/resetpassword/:token" component={ResetPassword} />
+        <Route path="/activated/:email/:token" component={COnfirmRegister} />
+      </StrictMode>
     </Router>
   )
 }

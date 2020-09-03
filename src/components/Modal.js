@@ -170,9 +170,8 @@ class Modal extends Component {
                         onChange={this.handleChange} />
                       </div>
                       <div className="form-group">
-                        {this.state.inputPassword ? (<input type="password" className="form-control passA" id="password"
-                        name="password" value={this.state.user.password} onChange={this.handleChange} />) : (<button type="button" className="btn btn-success col-md-12" onClick={()=>this.changePassword('change')}>Change Password</button>)}
-                        {this.state.show === true ? (<img src={showImmage} alt="show-password" className="icon-password-profil" style={{width: '15px'}} onClick={()=>this.showPassword('passA')} /> ): (<img src={hiddenImage} alt="show-password" className="icon-password-profil" style={{width: '15px'}} onClick={()=>this.showPassword('passA')} />)}
+                        {this.state.inputPassword ? (<><input type="password" className="form-control passA" id="password"
+                        name="password" value={this.state.user.password} onChange={this.handleChange} />{this.state.show === true ? (<img src={showImmage} alt="show-password" className="icon-password-profil" style={{width: '15px'}} onClick={()=>this.showPassword('passA')} /> ): (<img src={hiddenImage} alt="show-password" className="icon-password-profil" style={{width: '15px'}} onClick={()=>this.showPassword('passA')} />)}</> ) : (<button type="button" className="btn btn-success col-md-12" onClick={()=>this.changePassword('change')}>Change Password</button>)}
                       </div>
                   </form>
                   </div>

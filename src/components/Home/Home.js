@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Modal from '../Modal';
 import Swal from 'sweetalert2';
-import Pagination from '../Pagination';
+import ReactPaginate from 'react-paginate';
 
 
 
@@ -18,7 +18,9 @@ class Home extends Component {
       search: '',
       loading: false,
       name: '',
-      idUser: localStorage.Id
+      idUser: localStorage.Id,
+      pages: 20000,
+      currentPage: 1
       
     }
     this.getImageFromFlickr = this.getImageFromFlickr.bind(this)
@@ -26,6 +28,7 @@ class Home extends Component {
     this.searchImageFlickr = this.searchImageFlickr.bind(this)
     this.getLoginInfo = this.getLoginInfo.bind(this)
     this.logout = this.logout.bind(this)
+    this.handlePageClick = this.handlePageClick.bind(this)
   }
 
   handleChange(value, e) {
@@ -34,11 +37,13 @@ class Home extends Component {
     })
   }
   getImageFromFlickr(keyword) {
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=13961738ab40be669def9a4f1be13560&tags=${keyword}&per_page=50&format=json&nojsoncallback=1`)
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=13961738ab40be669def9a4f1be13560&tags=${keyword}&per_page=50&page=${this.state.currentPage}&format=json&nojsoncallback=1`)
       .then(res => {
         let datas = []
         this.setState({
-          allFeeds: res.data.photos.photo
+          allFeeds: res.data.photos.photo,
+          pages: res.data.photos.pages
+
         })
         this.state.allFeeds.map((value)=> {
             return datas.push({image:`https://farm${value.farm}.staticflickr.com/${value.server}/${value.id}_${value.secret}.jpg`, title: value.title})
@@ -52,7 +57,14 @@ class Home extends Component {
       })
   }
 
-  
+  handlePageClick (e) {
+    const selectedPage = e.selected;
+    this.setState({
+        currentPage: selectedPage,
+    });
+      this.getImageFromFlickr(this.state.tags)
+  };
+
 
 
   searchImageFlickr(e) {
@@ -160,7 +172,18 @@ class Home extends Component {
             })}      
              </div>
           </div>
-         <Pagination />
+                    <ReactPaginate
+                    previousLabel={"prev"}
+                    nextLabel={"next"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={this.state.pages}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={this.handlePageClick}
+                    containerClassName={"pagination justify-content-center"}
+                    subContainerClassName={"pages pagination"}
+                    activeClassName={"active"}/>
         </section>
         <Modal />
         </Fragment>

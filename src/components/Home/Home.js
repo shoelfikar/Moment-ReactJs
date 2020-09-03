@@ -71,6 +71,7 @@ class Home extends Component {
     e.preventDefault()
     this.getImageFromFlickr(this.state.search)
     this.setState({
+      tags: this.state.search,
       search: ''
     })
   }
